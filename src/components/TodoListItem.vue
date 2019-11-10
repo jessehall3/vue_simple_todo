@@ -12,12 +12,7 @@
       {{ todo.text }}
     </div>
     <button v-on:click="editTodo">
-      <span v-if="this.editable">
-        cancel
-      </span>
-      <span v-else>
-        edit
-      </span>
+      {{ this.editable ? 'cancel' : 'edit'}}
     </button>
     <button @click="$emit('remove', todo.id)">
       delete

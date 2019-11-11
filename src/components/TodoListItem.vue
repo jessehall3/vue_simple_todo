@@ -1,22 +1,25 @@
 <template>
   <div>
   <li>
-    <div v-if="this.editable">
-      <BaseInputText
+    <div :class="{done: isDone}">
+      <span v-if="this.editable">
+        <BaseInputText
         v-if="this.editable"
         v-model="updatedTodoText"
         @keydown.enter="updateTodo"
-      />
+        />
+      </span>
+      <span v-else>
+        {{ todo.text }}
+      </span>
     </div>
-    <div v-else>
-      {{ todo.text }}
-    </div>
-    <button v-on:click="editTodo">
+    <button @click="editTodo">
       {{ this.editable ? 'cancel' : 'edit'}}
     </button>
     <button @click="$emit('remove', todo.id)">
       delete
     </button>
+    <input type="checkbox" v-model="isDone">
   </li>
 </div>
 </template>
@@ -32,6 +35,7 @@ export default {
     return {
       updatedTodoText: this.todo.text,
       editable: false,
+      isDone: false,
     }
   },
   props: {
@@ -51,3 +55,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .done {
+    color: green;
+    text-decoration: line-through;
+  }
+</style>

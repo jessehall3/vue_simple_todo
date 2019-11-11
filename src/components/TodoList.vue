@@ -11,6 +11,7 @@
 		</div>
 		<div class="">
 			<button type="button" @click="deleteAllTodos">Delete All</button>
+			<button type="button" @click="clearCompletedTodos">Clear All Completed</button>
 		</div>
 		<hr>
 		<ol v-if="todos.length">
@@ -89,6 +90,11 @@ export default {
 			if (isApproved){
 				this.todos = []
 			}
+		},
+		clearCompletedTodos() {
+			this.todos = this.todos.filter(todo => {
+				return todo.isDone === false
+			})
 		}
 	}
 }

@@ -5,6 +5,14 @@
 			placeholder="New todo"
 			@keydown.enter="addTodo"
 		/>
+		<hr>
+		<div class="">
+			Mark All As Done<input type="checkbox" v-model="isAllDone" @click="toggleAllDone">
+		</div>
+		<div class="">
+			<button type="button" name="button">Delete All</button>
+		</div>
+		<hr>
 		<ol v-if="todos.length">
 			<TodoListItem
 				v-for="todo in todos"
@@ -32,14 +40,17 @@ export default {
   data () {
     return {
 			newTodoText: '',
+			isAllDone: false,
       todos: [
 				{
 					id: nextTodoId++,
-					text: 'Buy tomotatoes.'
+					text: 'Buy tomotatoes.',
+					isDone: false
 				},
 				{
 					id: nextTodoId++,
-					text: 'Smell the roses.'
+					text: 'Smell the roses.',
+					isDone: false
 				},
 			]
     }
@@ -58,6 +69,13 @@ export default {
 		removeTodo (idToRemove) {
 			this.todos = this.todos.filter(todo => {
 				return todo.id !== idToRemove
+			})
+		},
+		toggleAllDone () {
+			const self = this
+			self.todos = self.todos.map(todo => {
+				todo.isDone = !self.isAllDone
+				return todo
 			})
 		}
 	}

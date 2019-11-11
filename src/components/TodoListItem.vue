@@ -1,7 +1,7 @@
 <template>
   <div>
   <li>
-    <div :class="{done: isDone}">
+    <div>
       <span v-if="this.editable">
         <BaseInputText
         v-if="this.editable"
@@ -9,7 +9,7 @@
         @keydown.enter="updateTodo"
         />
       </span>
-      <span v-else>
+      <span :class="{done: todo.isDone}" v-else>
         {{ todo.text }}
       </span>
     </div>
@@ -19,7 +19,7 @@
     <button @click="$emit('remove', todo.id)">
       delete
     </button>
-    <input type="checkbox" v-model="isDone">
+    <input type="checkbox" v-model="todo.isDone">
   </li>
 </div>
 </template>
@@ -35,7 +35,6 @@ export default {
     return {
       updatedTodoText: this.todo.text,
       editable: false,
-      isDone: false,
     }
   },
   props: {

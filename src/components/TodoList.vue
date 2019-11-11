@@ -7,7 +7,7 @@
 		/>
 		<hr>
 		<div class="">
-			Mark All As Done<input type="checkbox" v-model="isAllDone" @click="toggleAllDone">
+			Mark All As Done<input type="checkbox" v-model="isAllDone">
 		</div>
 		<div class="">
 			<button type="button" @click="deleteAllTodos">Delete All</button>
@@ -40,7 +40,6 @@ export default {
   data () {
     return {
 			newTodoText: '',
-			isAllDone: false,
       todos: [
 				{
 					id: nextTodoId++,
@@ -55,6 +54,19 @@ export default {
 			]
     }
   },
+	computed: {
+		remainingTodos: function() {
+			return this.todos.filter( todo => todo.isDone === false)
+		},
+		isAllDone: {
+			get: function() {
+				return this.remainingTodos.length === 0;
+			},
+			set: function(value) {
+				this.todos.forEach( todo => { todo.isDone = value })
+			},
+		}
+	},
 	methods: {
 		addTodo () {
 			const trimmedText = this.newTodoText.trim()
@@ -73,17 +85,10 @@ export default {
 			})
 		},
 		deleteAllTodos() {
-			const isApproved = confirm("Are you sure you want to delete all your to-do items?")
+			const isApproved = confirm("Are you sure you want to delete all your To-Do items?")
 			if (isApproved){
 				this.todos = []
 			}
-		},
-		toggleAllDone () {
-			const self = this
-			self.todos = self.todos.map(todo => {
-				todo.isDone = !self.isAllDone
-				return todo
-			})
 		}
 	}
 }

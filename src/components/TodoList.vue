@@ -61,7 +61,8 @@ export default {
 			if (trimmedText) {
 				this.todos.push({
 					id: nextTodoId++,
-					text: trimmedText
+					text: trimmedText,
+					isDone: false,
 				})
 				this.newTodoText = ''
 			}

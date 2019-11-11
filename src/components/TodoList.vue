@@ -10,7 +10,7 @@
 			Mark All As Done<input type="checkbox" v-model="isAllDone" @click="toggleAllDone">
 		</div>
 		<div class="">
-			<button type="button" name="button">Delete All</button>
+			<button type="button" @click="deleteAllTodos">Delete All</button>
 		</div>
 		<hr>
 		<ol v-if="todos.length">
@@ -70,6 +70,12 @@ export default {
 			this.todos = this.todos.filter(todo => {
 				return todo.id !== idToRemove
 			})
+		},
+		deleteAllTodos() {
+			const isApproved = confirm("Are you sure you want to delete all your to-do items?")
+			if (isApproved){
+				this.todos = []
+			}
 		},
 		toggleAllDone () {
 			const self = this

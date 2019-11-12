@@ -61,7 +61,7 @@ export default {
 		},
 		isAllDone: {
 			get: function() {
-				return this.remainingTodos.length === 0;
+				return this.todos.length && this.remainingTodos.length === 0;
 			},
 			set: function(value) {
 				this.todos.forEach( todo => { todo.isDone = value })
